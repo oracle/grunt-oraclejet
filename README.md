@@ -1,6 +1,9 @@
-# grunt-oraclejet
+# grunt-oraclejet 1.1.0
 
-> Build and serve tasks for Oracle JET web and mobile applications
+## About the Module
+This module contains contains build and serve tasks for Oracle JET web and mobile hybrid applications.
+
+This is an open source project maintained by Oracle Corp.
 
 ## Getting Started
 This plugin requires Grunt `~1.0.1`
@@ -82,8 +85,11 @@ grunt.initConfig({
 });
 ```
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+### [Contributing](https://github.com/oracle/generator-oraclejet/tree/master/CONTRIBUTING.md)
+Oracle JET is an open source project.  Pull Requests are currently not being accepted. See 
+[CONTRIBUTING](https://github.com/oracle/generator-oraclejet/tree/master/CONTRIBUTING.md)
+for details.
 
-## Release History
-_(Nothing yet)_
+### [License](https://github.com/oracle/generator-oraclejet/tree/master/LICENSE.md)
+Copyright (c) 2014, 2016 Oracle and/or its affiliates
+The Universal Permissive License (UPL), Version 1.0

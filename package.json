@@ -1,7 +1,7 @@
 {
   "name": "grunt-oraclejet",
   "description": "Build and serve tasks for Oracle JET web and mobile applications",
-  "version": "1.1.0-b3",
+  "version": "1.1.0",
   "license": "UPL-1.0",
   "homepage": "http://oraclejet.org",
   "main": "tasks/build.js",  
@@ -17,7 +17,7 @@
   },
   "dependencies": 
   {
-    "oraclejet-tooling": "1.1.0-b3"
+    "oraclejet-tooling": "~1.1.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
