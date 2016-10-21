@@ -117,6 +117,7 @@ module.exports = (grunt) =>
     serveOptions.port = grunt.option('server-port');
     serveOptions.target = grunt.option('target');
     serveOptions.theme = grunt.option('theme');
+    serveOptions.themes = utils.validateThemes(grunt.option('themes'));
     serveOptions.sassCompile = grunt.option('sass');
     serveOptions.connect = utils.validateServeOptions(grunt.config('oraclejet-serve'), 'connect');
     serveOptions.watch = utils.validateServeOptions(grunt.config('oraclejet-serve'), 'watch');

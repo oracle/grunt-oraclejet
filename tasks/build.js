@@ -21,6 +21,7 @@ module.exports = function (grunt) {
     options.buildType = buildType;
     options.buildConfig = grunt.option('build-config');
     options.theme = grunt.option('theme');
+    options.themes = utils.validateThemes(grunt.option('themes'));
     options.sassCompile = grunt.option('sass');
     options.destination = _getDestination(grunt);
     ojet.build(platform, options)

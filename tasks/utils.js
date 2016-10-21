@@ -8,11 +8,11 @@
  * # Dependencies
  */
 const CORDOVA_CONFIG_XML = "config.xml";
-const CORDOVA_DIRECTORY = "hybrid";
 const SUPPORTED_PLATFORMS = ['web', 'ios', 'android', 'windows'];
 const configs = require('./configs');
 const path = require('path');
 const fs = require('fs');
+const ojetConfig = require('oraclejet-tooling').config;
 let grunt = {};
 let utils = {};
 
@@ -172,9 +172,10 @@ utils.log.error = (message) =>
   throw new Error(message);
 };
 
-function _getInstalledPlatforms() {
+function _getInstalledPlatforms(cordovaPath) {
   try {
-    const platformsJSON = grunt.file.readJSON(path.join(CORDOVA_DIRECTORY, 'platforms', 'platforms.json'));
+    
+    const platformsJSON = grunt.file.readJSON(path.join(cordovaPath, 'platforms', 'platforms.json'));
     const platforms = Object.keys(platformsJSON);
     return platforms.filter((value) => value !== 'browser');
   } catch (error) {
@@ -193,11 +194,14 @@ function _getInstalledPlatforms() {
 
 utils.getDefaultPlatform = (gruntAsArg) => {
   grunt = gruntAsArg;
-  const isHybrid = fs.existsSync(path.resolve(CORDOVA_DIRECTORY, CORDOVA_CONFIG_XML));
+  const pathConfig = ojetConfig.loadOraclejetConfig();
+  const isHybrid = fs.existsSync(path.resolve(pathConfig.staging.hybrid, CORDOVA_CONFIG_XML));
+  const isAddHybrid = fs.existsSync(path.resolve(pathConfig.src.web)) 
+                    || fs.existsSync(path.resolve(pathConfig.src.hybrid));
   if (isHybrid) {
-    let platforms = _getInstalledPlatforms();
+    let platforms = _getInstalledPlatforms(pathConfig.staging.hybrid);
     // if only one platform is installed, default to that one
-    if (platforms.length === 1) {
+    if (platforms.length === 1 && !isAddHybrid) {
       return platforms[0];
     } else {
       // if multiple platforms are installed, throw error
@@ -241,6 +245,10 @@ utils.validateServeOptions = (serveOptions, targetKey) => {
      });
   }
   return config;
+}
+
+utils.validateThemes = (themeString) => {
+  return themeString ? themeString.split(',') : undefined;
 }
 
 module.exports = utils; 

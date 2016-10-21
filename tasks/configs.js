@@ -14,6 +14,7 @@ module.exports = {
       'platform',
       'sass',
       'theme',
+      'themes',
       'no-sass'
     ],
     deprecations: [{
@@ -24,6 +25,7 @@ module.exports = {
   },
   'oraclejet-serve': {
     supportedFlags: [
+      'build',
       'build-config', 
       'browser', 
       'destination',
@@ -36,6 +38,7 @@ module.exports = {
       'server-only',
       'target',
       'theme',
+      'themes',
       'sass',
       'no-sass'
     ], 

@@ -1,11 +1,16 @@
-# grunt-oraclejet 1.1.0
+# grunt-oraclejet 2.2.0
 
-## About the Module
-This module contains contains build and serve tasks for Oracle JET web and mobile hybrid applications.
+> Build and serve tasks for Oracle JET web and mobile applications
+
+## About the module
+This module contains build and serve tasks for Oracle JET web and hybrid mobile applications.
 
 This is an open source project maintained by Oracle Corp.
 
-## Getting Started
+## Installation
+The grunt-oraclejet module will be automatically installed if you scaffold a web or hybrid mobile app following the [Oracle JET Developers Guide](http://docs.oracle.com/middleware/jet210/jet/).
+
+### Manual installation
 This plugin requires Grunt `~1.0.1`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
@@ -20,7 +25,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-oraclejet');
 ```
 
-## The "oraclejet" task
+## Usage
 
 ### Overview
 In your project's Gruntfile, add a section named `oraclejet` to the data object passed into `grunt.initConfig()`.
@@ -85,11 +90,11 @@ grunt.initConfig({
 });
 ```
 
-### [Contributing](https://github.com/oracle/generator-oraclejet/tree/master/CONTRIBUTING.md)
+## [Contributing](https://github.com/oracle/grunt-oraclejet/tree/master/CONTRIBUTING.md)
 Oracle JET is an open source project.  Pull Requests are currently not being accepted. See 
-[CONTRIBUTING](https://github.com/oracle/generator-oraclejet/tree/master/CONTRIBUTING.md)
+[CONTRIBUTING](https://github.com/oracle/grunt-oraclejet/tree/master/CONTRIBUTING.md)
 for details.
 
-### [License](https://github.com/oracle/generator-oraclejet/tree/master/LICENSE.md)
+## [License](https://github.com/oracle/grunt-oraclejet/tree/master/LICENSE.md)
 Copyright (c) 2014, 2016 Oracle and/or its affiliates
 The Universal Permissive License (UPL), Version 1.0
