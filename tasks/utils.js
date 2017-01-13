@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2015, 2016, Oracle and/or its affiliates.
+  Copyright (c) 2015, 2017, Oracle and/or its affiliates.
   The Universal Permissive License (UPL), Version 1.0
 */
 'use strict';
@@ -194,7 +194,7 @@ function _getInstalledPlatforms(cordovaPath) {
 
 utils.getDefaultPlatform = (gruntAsArg) => {
   grunt = gruntAsArg;
-  const pathConfig = ojetConfig.loadOraclejetConfig();
+  const pathConfig = ojetConfig.getConfiguredPaths();
   const isHybrid = fs.existsSync(path.resolve(pathConfig.staging.hybrid, CORDOVA_CONFIG_XML));
   const isAddHybrid = fs.existsSync(path.resolve(pathConfig.src.web)) 
                     || fs.existsSync(path.resolve(pathConfig.src.hybrid));
@@ -233,7 +233,7 @@ utils.validatePlatform = (platform, gruntAsArg) => {
 utils.validateBuildOptions = (buildOptions, platform) => {
   const platformType = (platform === 'web') ? 'web': 'hybrid';  
   return (buildOptions && buildOptions[platformType]) ? buildOptions[platformType] : {};
-}
+};
 
 utils.validateServeOptions = (serveOptions, targetKey) => {
   let config = {};
@@ -245,11 +245,19 @@ utils.validateServeOptions = (serveOptions, targetKey) => {
      });
   }
   return config;
-}
+};
 
 utils.validateThemes = (themeString) => {
   return themeString ? themeString.split(',') : undefined;
-}
+};
+
+utils.validatePlatformOptions = (platformOptions, platform) => {
+  if (platformOptions && platform === 'web') {
+    utils.log.warning(`--platform-options has no effect for platform: ${platform}.`);
+    return '';
+  }
+  return platformOptions;
+};
 
 module.exports = utils; 
 

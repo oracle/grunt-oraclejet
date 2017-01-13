@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2015, 2016, Oracle and/or its affiliates.
+  Copyright (c) 2015, 2017, Oracle and/or its affiliates.
   The Universal Permissive License (UPL), Version 1.0
 */
 'use strict';
@@ -24,6 +24,7 @@ module.exports = function (grunt) {
     options.themes = utils.validateThemes(grunt.option('themes'));
     options.sassCompile = grunt.option('sass');
     options.destination = _getDestination(grunt);
+    options.platformOptions = utils.validatePlatformOptions(grunt.option('platform-options'), platform);
     ojet.build(platform, options)
     .then(() => {
       done();

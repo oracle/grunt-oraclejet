@@ -7,7 +7,7 @@ Project Commands
                            Default: dev
     serve ................ Run JET project on local machine or connected device
     help ................. Prints out this help
-    
+
 Aliases
     build -> oraclejet-build
     serve -> oraclejet-serve
@@ -18,59 +18,66 @@ Grunt build options
                            <path to build config file>
     --platform ........... Specify the platform for building the app
                            [android, ios, windows, web]
-                           Default: if only one supported platform, that platform; otherwise a platform must be specified 
-    
+                           Default: if only one supported platform, that platform; otherwise a platform must be specified
+
+    --platform-options ... Platform specific options for Cordova (hybrid apps only)
+                           <platform specific options>
+                           use quotes to pass multiple options as a single parameter value
+
     --no-sass ............ Suppress SASS compilation
     --theme .............. Specify the theme for building the app
                            <theme_name>[:<platform>]
                            where <theme_name> is: alta or <custom theme name>
                            and <platform> is one of: android, ios, web, windows
                            Default: alta for the specified platform
-    --themes ............. Specify multiple themes separated by comma. When --theme flag is missing, 
+    --themes ............. Specify multiple themes separated by comma. When --theme flag is missing,
                            the first element in themes flag is identified as default theme.
                            When --theme flag is present, build app using --theme as default.
-    
+
     --destination ........ Specify the destination for building the app
                            [device, emulator]
                            Default: emulator
     --device ............. Shortcut for --destination=device
     --emulator ........... Shortcut for --destination=emulator
-    
+
 Grunt serve options
-    
+
     --build-config ....... Specify the build config file for serving hybrid app
                            <path to build config file>
     --no-build ........... Suppress build
     --platform ........... Specify the platform for serving the app
                            [android, ios, windows, web]
                            Default: if only one supported platform, that platform; otherwise <none>
-    
+
+    --platform-options ... Platform specific options for Cordova (hybrid apps only)
+                           <platform specific options>
+                           use quotes to pass multiple options as a single parameter value
+
     --server-port ........ Specify the server port
                            <integer>
                            Default: 8000
-    
+
     --no-sass ............ Suppress SASS compilation & SASS watch
     --theme .............. Specify the theme for building the app
                            <theme_name>[:<platform>]
                            where <theme_name> is: alta or <custom theme name>
                            and <platform> is one of: android, ios, web, windows
                            Default: alta for the specified platform
-    --themes ............. Specify multiple themes separated by comma. When --theme flag is missing, 
+    --themes ............. Specify multiple themes separated by comma. When --theme flag is missing,
                            the first element in themes flag is identified as default theme.
                            When --theme flag is present, build app using --theme as default.
-    
+
     --no-livereload ...... Disable live reload
     --livereload-port .... Specify the live reload port
                            <integer>
                            Default: 35729
-    
+
     --destination ........ Specify the destination for serving the app
-                           [device, emulator, browser, server-only, <name of emulator/simulator>]
+                           [device[:<device-name>], emulator[:<emulator-name>],
+                           browser[:chrome, firefox, edge, ie, opera, safari],
+                           server-only, <device-or-emulator-name>]
                            Default: emulator
-    --target ............. Specify the browser to be used when launching the app in a browser. 
-                           Only applicable to web apps, or to hybrid apps when the destination is 'browser'.
-                           [chrome, edge, ie, firefox, safari]
-                           Default: chrome
+                           Default browser: chrome
     --browser ............ Shortcut for --destination=browser
     --device ............. Shortcut for --destination=device
     --emulator ........... Shortcut for --destination=emulator
@@ -79,5 +86,6 @@ Grunt serve options
 Examples
     grunt build --platform=ios
     grunt build --platform=android --destination=device
+    grunt build --platform=windows --platform-options="--arch=arm --appx=uap"
     grunt serve --browser
     grunt serve --no-sass --no-livereload

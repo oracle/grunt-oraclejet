@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2015, 2016, Oracle and/or its affiliates.
+  Copyright (c) 2015, 2017, Oracle and/or its affiliates.
   The Universal Permissive License (UPL), Version 1.0
 */
 'use strict';
@@ -15,7 +15,8 @@ module.exports = {
       'sass',
       'theme',
       'themes',
-      'no-sass'
+      'no-sass',
+      'platform-options'
     ],
     deprecations: [{
       flag: 'buildConfig',
@@ -36,11 +37,11 @@ module.exports = {
       'platform',
       'server-port',
       'server-only',
-      'target',
       'theme',
       'themes',
       'sass',
-      'no-sass'
+      'no-sass',
+      'platform-options'
     ], 
     deprecations: [{
       flag: 'buildConfig',
