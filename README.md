@@ -1,4 +1,4 @@
-# grunt-oraclejet 2.3.0
+# grunt-oraclejet 3.0.0
 
 ## About the module
 This module contains build and serve tasks for Oracle JET web and hybrid mobile applications.
@@ -6,7 +6,7 @@ This module contains build and serve tasks for Oracle JET web and hybrid mobile 
 This is an open source project maintained by Oracle Corp.
 
 ## Installation
-The grunt-oraclejet module will be automatically installed if you scaffold a web or hybrid mobile app following the [Oracle JET Developers Guide](http://docs.oracle.com/middleware/jet230/jet/).
+The grunt-oraclejet module will be automatically installed if you scaffold a web or hybrid mobile app following the [Oracle JET Developers Guide](http://docs.oracle.com/middleware/jet300/jet/).
 
 ### Manual installation
 This plugin requires Grunt `~1.0.1`

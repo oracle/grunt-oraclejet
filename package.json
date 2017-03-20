@@ -1,7 +1,7 @@
 {
   "name": "grunt-oraclejet",
   "description": "Build and serve tasks for Oracle JET web and mobile applications",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "license": "UPL-1.0",
   "homepage": "http://oraclejet.org",
   "main": "tasks/build.js",  
@@ -19,9 +19,11 @@
   },
   "dependencies": 
   {
-    "oraclejet-tooling": "~2.3.0"
+    "oraclejet-tooling": "~3.0.0"
   },  
   "devDependencies": {
+    "eslint": "^3.11.0",
+    "grunt-eslint": "^19.0.0",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
@@ -31,5 +33,5 @@
   "keywords": [
     "gruntplugin"
   ],
-  "jetdocversion": "230"
+  "jetdocversion": "300"  
 }

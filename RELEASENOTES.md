@@ -1,4 +1,4 @@
 ## Release Notes for grunt-oraclejet ##
 
-### 2.3.0
-* No changes - refer to generator-oraclejet RELEASENOTES.md
+### 3.0.0
+* No changes

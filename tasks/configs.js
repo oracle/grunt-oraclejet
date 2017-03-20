@@ -27,8 +27,8 @@ module.exports = {
   'oraclejet-serve': {
     supportedFlags: [
       'build',
-      'build-config', 
-      'browser', 
+      'build-config',
+      'browser',
       'destination',
       'device',
       'emulator',
@@ -42,20 +42,20 @@ module.exports = {
       'sass',
       'no-sass',
       'platform-options'
-    ], 
+    ],
     deprecations: [{
       flag: 'buildConfig',
       replacement: 'build-config',
       note: '2.1.0'
-    },{
+    }, {
       flag: 'disableLiveReload',
       replacement: 'livereload',
       note: '2.1.0'
-    },{
+    }, {
       flag: 'livereloadPort',
       replacement: 'livereload-port',
       note: '2.1.0'
-    },{
+    }, {
       flag: 'serverPort',
       replacement: 'server-port',
       note: '2.1.0'

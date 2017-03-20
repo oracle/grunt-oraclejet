@@ -46,7 +46,7 @@ module.exports = (grunt) => {
     });
 
     if (size > 1) {
-      utils.log.error('Only one of \'device/emulator/browser/server-only\' options should be specified');
+      throw utils.toError('Only one of \'device/emulator/browser/server-only\' options should be specified');
     }
 
     return shortcut;
@@ -62,7 +62,7 @@ module.exports = (grunt) => {
     const destinationShortcut = _getDestinationShortcut();
 
     if (destination && destinationShortcut) {
-      utils.log.error('Only one of \'destination/device/emulator/browser/server-only\' options should be specified');
+      throw utils.toError('Only one of \'destination/device/emulator/browser/server-only\' options should be specified');
     }
 
     if (destination || destinationShortcut) {
@@ -98,7 +98,7 @@ module.exports = (grunt) => {
 
     const serveOptions = {};
     const platform = utils.validatePlatform(grunt.option('platform'), grunt);
-    serveOptions.buildOptions = utils.validateBuildOptions(grunt.config('oraclejet-build'), platform);
+    serveOptions.buildOptions = grunt.config('oraclejet-build');
     serveOptions.buildType = buildType;
     serveOptions.buildConfig = grunt.option('build-config');
     serveOptions.build = grunt.option('build');
@@ -110,8 +110,8 @@ module.exports = (grunt) => {
     serveOptions.themes = utils.validateThemes(grunt.option('themes'));
     serveOptions.sassCompile = grunt.option('sass');
     serveOptions.platformOptions = utils.validatePlatformOptions(grunt.option('platform-options'), platform);
-    serveOptions.connect = utils.validateServeOptions(grunt.config('oraclejet-serve'), 'connect');
-    serveOptions.watch = utils.validateServeOptions(grunt.config('oraclejet-serve'), 'watch');
+    serveOptions.connect = utils.validateServeOptions(grunt.config('oraclejet-serve'), 'connect', platform);
+    serveOptions.watch = utils.validateServeOptions(grunt.config('oraclejet-serve'), 'watch', platform);
     if (buildType === 'release') {
       serveOptions.livereload = false;
     }
@@ -125,7 +125,7 @@ module.exports = (grunt) => {
         // Can not throw in promise catch handler
         // http://stackoverflow.com/questions/30715367/why-can-i-not-throw-inside-a-promise-catch-handler
         setTimeout(() => {
-          utils.log.error(error)
+          throw utils.toError(error);
         }, 0);
       });
   });

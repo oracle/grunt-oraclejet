@@ -18,10 +18,9 @@ const path = require('path');
  * @public
  */
 
-module.exports = (grunt) =>
-{
-  grunt.registerTask('help', 'Displays help page', () => {
+module.exports = (grunt) => {
+  grunt.registerTask('help', 'Displays help page for each of the build and serve tasks.', () => {
     const file = path.join(__dirname, '..', 'doc', 'help.txt');
     console.log(fs.readFileSync(file).toString('utf8'));
-  });  
+  });
 };

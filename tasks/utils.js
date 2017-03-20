@@ -7,14 +7,15 @@
 /**
  * # Dependencies
  */
-const CORDOVA_CONFIG_XML = "config.xml";
+const CORDOVA_CONFIG_XML = 'config.xml';
 const SUPPORTED_PLATFORMS = ['web', 'ios', 'android', 'windows'];
 const configs = require('./configs');
 const path = require('path');
 const fs = require('fs');
 const ojetConfig = require('oraclejet-tooling').config;
+
 let grunt = {};
-let utils = {};
+const utils = {};
 
 /**
  * ## validateFlagSupport
@@ -24,13 +25,11 @@ let utils = {};
  * @param {string} taskName - Grunt task name
  * @param {string} flag
  */
-function validateFlagSupport(taskName, flag)
-{
+function validateFlagSupport(taskName, flag) {
   const supportedFlags = configs[taskName].supportedFlags;
-  
-  if (supportedFlags.indexOf(flag) === -1) 
-  {
-    utils.log.error('Flag \'' + flag +'\' not supported!');
+
+  if (supportedFlags.indexOf(flag) === -1) {
+    throw utils.toError(`Flag '${flag}' not supported!`);
   }
 }
 
@@ -42,45 +41,40 @@ function validateFlagSupport(taskName, flag)
  * @param {string} flag
  * @param {string} value
  */
-function validateFlag(taskName, flag, value)
-{
+function validateFlag(taskName, flag, value) {
   const deprecations = configs[taskName].deprecations;
   let validFlag = true;
-  
-  if (deprecations)
-  {
-    for (let i = 0; i < deprecations.length; i++)
-    {
-      const deprecation = deprecations[i];
-      if (flag === deprecation.flag)
-      {
+  let valueArg = value;
+
+  if (deprecations) {
+    deprecations.forEach((deprecation) => {
+      if (flag === deprecation.flag) {
         validFlag = false;
-        
+
         // Cases with 'no-' prefix when value is 'undefined'
-        if (!value) 
-        {
-          value = grunt.option(flag) 
+        if (!value) {
+          valueArg = grunt.option(flag);
         }
-        
-        // Validate deprecated flag vs. valid flag 
-        if (grunt.option(deprecation.replacement) || grunt.option('no-' + deprecation.replacement)) 
-        {
-          utils.log.error('Only one of \'' + flag + '\' and \'' + deprecation.replacement + '\' options should be specified.');
+
+        // Validate deprecated flag vs. valid flag
+        if (grunt.option(deprecation.replacement) || grunt.option(`no-${deprecation.replacement}`)) {
+          throw utils.toError(`Only one of '${flag}' and '${deprecation.replacement}' options allowed.`);
         }
-        
-        grunt.option(deprecation.replacement, value);  
-        utils.log.warning('Flag \'' + flag + '\' was deprecated. Please use \'' + deprecation.replacement + '\' instead. Flag was converted automatically.');
-        
+
+        grunt.option(deprecation.replacement, valueArg);
+        utils.log.warning(`Flag '${flag}' was deprecated. Please use '${deprecation.replacement}' instead. Flag was converted automatically.`);
+
         validateFlagSupport(taskName, deprecation.replacement);
       }
-    }
-    
+    });
+
     if (validFlag) {
       // Eventually strip 'no-' prefix
-      if (flag.substring(0,3) === 'no-') {
-        flag = flag.substring(3)
+      if (flag.substring(0, 3) === 'no-') {
+        validateFlagSupport(taskName, flag.substring(3));
+      } else {
+        validateFlagSupport(taskName, flag);
       }
-      validateFlagSupport(taskName, flag);
     }
   }
 }
@@ -91,36 +85,31 @@ function validateFlag(taskName, flag, value)
  * @public
  * @param {string} message
  */
-utils.log = (message) =>
-{
-  console.log(message);  
+utils.log = (message) => {
+  console.log(message);
 };
 
 /**
  * ## validateCommandFlags
  *
  * @public
- * @param {Object} gruntAsArg - Grunt object 
+ * @param {Object} gruntAsArg - Grunt object
  * @param {Object} flags      - Flags array
  */
-utils.validateFlags = (gruntAsArg, flags) => 
-{
+utils.validateFlags = (gruntAsArg, flags) => {
   grunt = gruntAsArg;
   const taskName = grunt.task.current.name;
-  
-  if (configs.hasOwnProperty(taskName))
-  {
-    for (let i = 0; i < flags.length; i++) 
-    {
+
+  if ({}.hasOwnProperty.call(configs, taskName)) {
+    for (let i = 0; i < flags.length; i += 1) {
       const flagAndValueSplitted = flags[i].split('=');
       // also remove '--' prefix
       const flag = flagAndValueSplitted[0].substring(2);
-      let value = flagAndValueSplitted[1];
+      const value = flagAndValueSplitted[1];
 
       // Do not validate system flags
-      if (configs.systemFlags.indexOf(flag) === -1) 
-      {
-        validateFlag(taskName, flag, value);  
+      if (configs.systemFlags.indexOf(flag) === -1) {
+        validateFlag(taskName, flag, value);
       }
     }
   }
@@ -131,10 +120,9 @@ utils.validateFlags = (gruntAsArg, flags) =>
  *
  * @public
  */
-
 utils.logModuleName = () => {
-  console.log('\x1b[42m','Oracle JET Grunt plugin','\x1b[0m');
-  utils.log('Processing Grunt command...');  
+  console.log('\x1b[42m', 'Oracle JET Grunt plugin', '\x1b[0m');
+  utils.log('Processing Grunt command...');
 };
 
 /**
@@ -143,9 +131,8 @@ utils.logModuleName = () => {
  * @public
  * @param {string} message
  */
-utils.log.info = (message) =>
-{
-  console.log('\x1b[32m','[Info] ' +  message ,'\x1b[0m');
+utils.log.info = (message) => {
+  console.log(`\x1b[32mJET Info: ${message}\x1b[0m`);
 };
 
 /**
@@ -154,30 +141,19 @@ utils.log.info = (message) =>
  * @public
  * @param {string} message
  */
-utils.log.warning = (message) =>
-{
-  console.log('\x1b[33m','[Warning] ' +  message ,'\x1b[0m');  
+utils.log.warning = (message) => {
+  console.log(`\x1b[33mJET Warning: ${message}\x1b[0m`);
 };
 
-/**
- * ## log.error
- * Throws error
- *
- * @public
- * @param {string} [message] - Error message
- */
-utils.log.error = (message) =>
-{
-  message = message || 'Unknown error';
-  throw new Error(message);
-};
+
+utils.toError = message =>
+  new Error(message || 'Unknown error');
 
 function _getInstalledPlatforms(cordovaPath) {
   try {
-    
     const platformsJSON = grunt.file.readJSON(path.join(cordovaPath, 'platforms', 'platforms.json'));
     const platforms = Object.keys(platformsJSON);
-    return platforms.filter((value) => value !== 'browser');
+    return platforms.filter(value => value !== 'browser');
   } catch (error) {
     throw error;
   }
@@ -189,29 +165,27 @@ function _getInstalledPlatforms(cordovaPath) {
  * if single platform, return that platform
  *
  * @public
- * @returns {string} 
+ * @returns {string}
  */
 
 utils.getDefaultPlatform = (gruntAsArg) => {
   grunt = gruntAsArg;
   const pathConfig = ojetConfig.getConfiguredPaths();
   const isHybrid = fs.existsSync(path.resolve(pathConfig.staging.hybrid, CORDOVA_CONFIG_XML));
-  const isAddHybrid = fs.existsSync(path.resolve(pathConfig.src.web)) 
-                    || fs.existsSync(path.resolve(pathConfig.src.hybrid));
+  const isAddHybrid = fs.existsSync(path.resolve(pathConfig.src.web))
+                      || fs.existsSync(path.resolve(pathConfig.src.hybrid));
+
   if (isHybrid) {
-    let platforms = _getInstalledPlatforms(pathConfig.staging.hybrid);
+    const platforms = _getInstalledPlatforms(pathConfig.staging.hybrid);
     // if only one platform is installed, default to that one
     if (platforms.length === 1 && !isAddHybrid) {
       return platforms[0];
-    } else {
-      // if multiple platforms are installed, throw error
-      const supportedPlatforms = SUPPORTED_PLATFORMS.toString().replace(/,/g,'||');
-      utils.log.error(`Missing platform. Please use \'--platform=\<${supportedPlatforms}\>\'`);
     }
-
-  } else {
-    return "web";
+    // if multiple platforms are installed, throw error
+    const supportedPlatforms = SUPPORTED_PLATFORMS.toString().replace(/,/g, '||');
+    throw utils.toError(`Missing platform. Please use "--platform=<${supportedPlatforms}>"`);
   }
+  return 'web';
 };
 
 utils.validatePlatform = (platform, gruntAsArg) => {
@@ -221,35 +195,27 @@ utils.validatePlatform = (platform, gruntAsArg) => {
     validPlatform = utils.getDefaultPlatform(gruntAsArg);
     utils.log.warning(`Missing platform. Default to ${validPlatform}.`);
     return validPlatform;
-  } else {
-    if (SUPPORTED_PLATFORMS.indexOf(platform) > -1) {
-      return platform;
-    } else {
-      utils.log.error(`Invalid platform: ${platform}.`);
-    }
   }
+  if (SUPPORTED_PLATFORMS.indexOf(platform) > -1) {
+    return platform;
+  }
+  throw utils.toError(`Invalid platform: ${platform}.`);
 };
 
-utils.validateBuildOptions = (buildOptions, platform) => {
-  const platformType = (platform === 'web') ? 'web': 'hybrid';  
-  return (buildOptions && buildOptions[platformType]) ? buildOptions[platformType] : {};
-};
-
-utils.validateServeOptions = (serveOptions, targetKey) => {
-  let config = {};
-  if (serveOptions){    
-    Object.keys(serveOptions).forEach(key => {
-      if(key === targetKey) {
-        config = serveOptions[key];
-      }
-     });
+utils.validateServeOptions = (serveOptions, targetKey, platform) => {
+  if (platform === 'web') {
+    return Object.assign({}, serveOptions[targetKey], serveOptions.web[targetKey]);
   }
-  return config;
+  return Object.assign({}, serveOptions[targetKey], serveOptions.hybrid[targetKey]);
 };
 
 utils.validateThemes = (themeString) => {
-  return themeString ? themeString.split(',') : undefined;
+  if (themeString) {
+    return themeString.split(',');
+  }
+  return undefined;
 };
+
 
 utils.validatePlatformOptions = (platformOptions, platform) => {
   if (platformOptions && platform === 'web') {
@@ -259,5 +225,6 @@ utils.validatePlatformOptions = (platformOptions, platform) => {
   return platformOptions;
 };
 
-module.exports = utils; 
+
+module.exports = utils;
 
