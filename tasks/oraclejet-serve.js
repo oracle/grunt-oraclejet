@@ -98,7 +98,7 @@ module.exports = (grunt) => {
 
     const serveOptions = {};
     const platform = utils.validatePlatform(grunt.option('platform'), grunt);
-    serveOptions.buildOptions = grunt.config('oraclejet-build');
+    serveOptions.buildOptions = grunt.config('oraclejet-build') || {};
     serveOptions.buildType = buildType;
     serveOptions.buildConfig = grunt.option('build-config');
     serveOptions.build = grunt.option('build');

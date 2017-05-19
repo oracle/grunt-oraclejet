@@ -203,10 +203,18 @@ utils.validatePlatform = (platform, gruntAsArg) => {
 };
 
 utils.validateServeOptions = (serveOptions, targetKey, platform) => {
-  if (platform === 'web') {
-    return Object.assign({}, serveOptions[targetKey], serveOptions.web[targetKey]);
+  let customOptions = {};
+
+  if (serveOptions) {
+    if (platform === 'web' && serveOptions.web[targetKey]) {
+      customOptions = Object.assign({}, serveOptions[targetKey], serveOptions.web[targetKey]);
+    } else if (platform === 'hybrid' && serveOptions.hybrid[targetKey]) {
+      customOptions = Object.assign({}, serveOptions[targetKey], serveOptions.hybrid[targetKey]);
+    } else if (serveOptions[targetKey]) {
+      customOptions = Object.assign({}, serveOptions[targetKey]);
+    }
   }
-  return Object.assign({}, serveOptions[targetKey], serveOptions.hybrid[targetKey]);
+  return customOptions;
 };
 
 utils.validateThemes = (themeString) => {

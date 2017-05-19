@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 
     const done = grunt.task.current.async();
     const platform = utils.validatePlatform(grunt.option('platform'), grunt);
-    const options = grunt.config('oraclejet-build');
+    const options = grunt.config('oraclejet-build') || {};
     const buildType = target || 'dev';
     options.buildType = buildType;
     options.buildConfig = grunt.option('build-config');
