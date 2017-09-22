@@ -1,5 +1,8 @@
 ## Release Notes for grunt-oraclejet ##
 
+### 4.0.0
+* Moved module into @oracle scope, changing the name to @oracle/grunt-oraclejet
+
 ### 3.2.0
 * No changes
 

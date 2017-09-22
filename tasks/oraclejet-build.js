@@ -7,7 +7,7 @@
 /*
  * grunt-oraclejet
  */
-const ojet = require('oraclejet-tooling');
+const ojet = require('@oracle/oraclejet-tooling');
 const utils = require('./utils');
 
 module.exports = function (grunt) {

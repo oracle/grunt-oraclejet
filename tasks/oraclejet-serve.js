@@ -8,7 +8,7 @@
  * # Dependencies
  */
 
-const ojet = require('oraclejet-tooling');
+const ojet = require('@oracle/oraclejet-tooling');
 const utils = require('./utils');
 
 /**

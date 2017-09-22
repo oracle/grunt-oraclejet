@@ -12,7 +12,7 @@ const SUPPORTED_PLATFORMS = ['web', 'ios', 'android', 'windows'];
 const configs = require('./configs');
 const path = require('path');
 const fs = require('fs');
-const ojetConfig = require('oraclejet-tooling').config;
+const ojetConfig = require('@oracle/oraclejet-tooling').config;
 
 let grunt = {};
 const utils = {};
