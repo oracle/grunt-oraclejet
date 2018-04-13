@@ -12,7 +12,6 @@ const utils = require('./utils');
 
 module.exports = function (grunt) {
   grunt.registerTask('oraclejet-build', 'Builds the oraclejet application.', (target) => {
-    utils.logModuleName();
     utils.validateFlags(grunt, grunt.option.flags());
 
     const done = grunt.task.current.async();

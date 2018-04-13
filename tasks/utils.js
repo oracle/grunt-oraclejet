@@ -116,33 +116,13 @@ utils.validateFlags = (gruntAsArg, flags) => {
 };
 
 /**
- * ## logModuleName
- *
- * @public
- */
-utils.logModuleName = () => {
-  console.log('\x1b[42m', 'Oracle JET Grunt plugin', '\x1b[0m');
-  utils.log('Processing Grunt command...');
-};
-
-/**
- * ## log.success
- *
- * @public
- * @param {string} message
- */
-utils.log.info = (message) => {
-  console.log(`\x1b[32mJET Info: ${message}\x1b[0m`);
-};
-
-/**
  * ## log.warning
  *
  * @public
  * @param {string} message
  */
 utils.log.warning = (message) => {
-  console.log(`\x1b[33mJET Warning: ${message}\x1b[0m`);
+  console.log(`\x1b[33mWarning: ${message}\x1b[0m`);
 };
 
 

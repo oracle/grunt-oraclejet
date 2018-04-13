@@ -90,7 +90,6 @@ module.exports = (grunt) => {
    * @public
    */
   grunt.registerTask('oraclejet-serve', 'Serves the oraclejet application.', function (buildType) {
-    utils.logModuleName();
     utils.validateFlags(grunt, grunt.option.flags());
 
     _validateDestination();
