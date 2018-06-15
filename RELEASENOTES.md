@@ -1,5 +1,8 @@
 ## Release Notes for grunt-oraclejet ##
 
+### 5.1.0
+* No changes
+
 ### 5.0.0
 * No changes
 
