@@ -74,7 +74,7 @@ Grunt serve options
 
     --destination ........ Specify the destination for serving the app
                            [device[:<device-name>], emulator[:<emulator-name>],
-                           browser[:chrome, firefox, edge, ie, opera, safari],
+                           browser[:chrome, firefox, edge, ie, safari],
                            server-only]
                            Default: emulator
                            Default browser: chrome
