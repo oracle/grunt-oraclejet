@@ -1,4 +1,4 @@
-# @oracle/grunt-oraclejet 6.1.0
+# @oracle/grunt-oraclejet 6.2.0
 
 ## About the module
 This module contains build and serve tasks for Oracle JET web and hybrid mobile applications.
@@ -6,7 +6,7 @@ This module contains build and serve tasks for Oracle JET web and hybrid mobile 
 This is an open source project maintained by Oracle Corp.
 
 ## Installation
-This module will be automatically installed when you scaffold a web or hybrid mobile app following the [Oracle JET Developers Guide](http://www.oracle.com/pls/topic/lookup?ctx=jet610&id=homepage).
+This module will be automatically installed when you scaffold a web or hybrid mobile app following the [Oracle JET Developers Guide](http://www.oracle.com/pls/topic/lookup?ctx=jet620&id=homepage).
 
 ## [Contributing](https://github.com/oracle/grunt-oraclejet/tree/master/CONTRIBUTING.md)
 Oracle JET is an open source project.  Pull Requests are currently not being accepted. See 
